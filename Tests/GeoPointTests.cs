@@ -107,5 +107,123 @@ namespace Tests
 
             Assert.AreEqual(expected: 0d, actual: actual, message: "Zero value geo point");
         }
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointMoskauToTunis()
+        {
+            const double moskauLat = 55.720224;
+            const double moskauLon = 37.629893;
+            const double tunisLat = 33.857982;
+            const double tunisLon = 9.526866;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(moskauLat, moskauLon, tunisLat, tunisLon);
+
+            Assert.AreEqual(expected: 3000, actual: actual, delta: delta, message: "Static method: distance from Moskau to Tunis");
+        }
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointNewYorkToUrugvay()
+        {
+            const double newYorkLat = 40.687512;
+            const double newYorkLon = -73.874631;
+            const double urugvayLat = -32.802743;
+            const double urugvayLon = -55.535703;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(newYorkLat, newYorkLon, urugvayLat, urugvayLon);
+
+            Assert.AreEqual(expected: 8351, actual: actual, delta: delta, message: "Static method: distance from New York to Urugvay");
+        }
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointNewYorkToWashington()
+        {
+            const double newYorkLat = 40.687512;
+            const double newYorkLon = -73.874631;
+            const double washingtonLat = 38.863545;
+            const double washingtonLon = -76.965959;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(newYorkLat, newYorkLon, washingtonLat, washingtonLon);
+
+            Assert.AreEqual(expected: 328, actual: actual, delta: delta, message: "Distance from New York to Washington");
+        }
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointGabonToalKharga()
+        {
+            const double gabonLat = -0.556921;
+            const double gabonLon = 11.354516;
+            const double alKhargaLat = 25.506751;
+            const double alKhargaLon = 29.339873;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(gabonLat, gabonLon, alKhargaLat, alKhargaLon);
+
+            Assert.AreEqual(expected: 3500, actual: actual, delta: delta, message: "Static method: distance from Gabon to AlKharga");
+        }
+
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointNotCorrectStartGeoPoints()
+        {
+            const double startLat = 555.72;
+            const double startLon = 555.72;
+            const double endLat = -33.857;
+            const double endLon = 9.526;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(startLat, startLon, endLat, endLon);
+
+            Assert.AreEqual(expected: double.MinValue, actual: actual, message: "Static method: not correct start geo point");
+        }
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointNotCorrectEndGeoPoints()
+        {
+            const double startLat = 33.857;
+            const double startLon = 9.526;
+            const double endLat = -555.72;
+            const double endLon = 370.6;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(startLat, startLon, endLat, endLon);
+
+            Assert.AreEqual(expected: double.MinValue, actual: actual, message: "Static method: not correct end geo point");
+        }
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointMinValue()
+        {
+            const double startLat = double.MinValue;
+            const double startLon = double.MinValue;
+            const double endLat = double.MinValue;
+            const double endLon = double.MinValue;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(startLat, startLon, endLat, endLon);
+
+            Assert.AreEqual(expected: double.MinValue, actual: actual, message: "Static method: minimum value geo point");
+        }
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointMaxValue()
+        {
+            const double startLat = double.MaxValue;
+            const double startLon = double.MaxValue;
+            const double endLat = double.MaxValue;
+            const double endLon = double.MaxValue;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(startLat, startLon, endLat, endLon);
+
+            Assert.AreEqual(expected: double.MinValue, actual: actual, message: "Static method: maximum value geo point");
+        }
+
+        [TestMethod]
+        public void StaticCalculationDistanceToPointZeroValue()
+        {
+            const double startLat = 0d;
+            const double startLon = 0d;
+            const double endLat = 0d;
+            const double endLon = 0d;
+
+            var actual = GeoPoint.CalculationDistanceToPoint(startLat, startLon, endLat, endLon);
+
+            Assert.AreEqual(expected: 0d, actual: actual, message: "Static method: zero value geo point");
+        }
     }
 }
