@@ -6,23 +6,32 @@ namespace Tests
     [TestClass]
     public class GeoPointTests
     {
-        GeoPoint start = new GeoPoint(55.720224, 37.629893); //Moskau
-        GeoPoint end = new GeoPoint(33.857982, 9.526866); //Tunis
+        const double delta = 300;
 
         [TestMethod]
-        public void CalculationDistanceToPointStatic()
+        public void CalculationDistanceToPointStaticMoskauToTunis()
         {
-            var actual = GeoPoint.CalculationDistanceToPoint(55.720224, 37.629893, 33.857982, 9.526866);
+            const double latitudeMoskau = 55.720224;
+            const double longitudeMoskau = 37.629893;
+            const double latitudeTunis = 33.857982;
+            const double longitudeTunis = 9.526866;
 
-            Assert.AreEqual(expected: 5d, actual: actual);
+            var actual = GeoPoint.CalculationDistanceToPoint(latitudeMoskau, longitudeMoskau, latitudeTunis, longitudeTunis);
+
+            Assert.AreEqual(expected: 3000, actual: actual, delta: delta);
         }
 
         [TestMethod]
-        public void CalculationDistanceToPoint()
+        public void CalculationDistanceToPointMoskauToTunis()
         {
-            var actual = start.CalculationDistanceToPoint(end);
+            var moskau = new GeoPoint(55.720224, 37.629893);
+            var tunis = new GeoPoint(33.857982, 9.526866);
 
-            Assert.AreEqual(expected: 3000, actual: actual, delta: 300);
+            var actual = moskau.CalculationDistanceToPoint(tunis);
+
+            Assert.AreEqual(expected: 3000, actual: actual, delta: delta);
         }
+
+
     }
 }
