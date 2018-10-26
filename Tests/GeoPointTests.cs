@@ -32,6 +32,26 @@ namespace Tests
             Assert.AreEqual(expected: 3000, actual: actual, delta: delta);
         }
 
+        [TestMethod]
+        public void CalculationDistanceToPointNewYorkToUrugvay()
+        {
+            var newYork = new GeoPoint(40.687512, -73.874631);
+            var urugvay = new GeoPoint(-32.802743, -55.535703);
 
+            var actual = newYork.CalculationDistanceToPoint(urugvay);
+
+            Assert.AreEqual(expected: 8351, actual: actual, delta: delta);
+        }
+
+        [TestMethod]
+        public void CalculationDistanceToPointStaticNewYorkToUrugvay()
+        {
+            var newYork = new GeoPoint(40.687512, -73.874631);
+            var urugvay = new GeoPoint(-32.802743, -55.535703);
+
+            var actual = newYork.CalculationDistanceToPoint(urugvay);
+
+            Assert.AreEqual(expected: 8351, actual: actual, delta: delta);
+        }
     }
 }
