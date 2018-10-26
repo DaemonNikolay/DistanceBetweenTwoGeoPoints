@@ -11,6 +11,7 @@ namespace DistanceBetweenTwoGeoPoints
             Latitude = latitude;
             Longitude = longitude;
         }
+
         private double Latitude { get; set; }
         private double Longitude { get; set; }
 
@@ -33,10 +34,7 @@ namespace DistanceBetweenTwoGeoPoints
             return RadiusEarthKM * angle;
         }
 
-        public double CalculationDistanceToPoint(GeoPoint second)
-        {
-            return CalculationDistanceToPoint(Latitude, Longitude, second.Latitude, second.Longitude);
-        }
+        public double CalculationDistanceToPoint(GeoPoint second) => CalculationDistanceToPoint(Latitude, Longitude, second.Latitude, second.Longitude);
 
         private static bool IsCorrectGeoPoints(double firstLatitude, double firstLongitude, double secondLatitude, double secondLongitude)
         {

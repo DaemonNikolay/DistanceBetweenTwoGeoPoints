@@ -49,7 +49,7 @@ namespace Tests
 
             var actual = gabon.CalculationDistanceToPoint(alKharga);
 
-            Assert.AreEqual(expected: 3500, actual: actual, delta: delta, message: "Distance from Gebon to alKharga");
+            Assert.AreEqual(expected: 3500, actual: actual, delta: delta, message: "Distance from Gabon to AlKharga");
         }
 
 
