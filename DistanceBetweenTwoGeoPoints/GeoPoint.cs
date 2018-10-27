@@ -34,7 +34,15 @@ namespace DistanceBetweenTwoGeoPoints
             return RadiusEarthKM * angle;
         }
 
-        public double CalculationDistanceToPoint(GeoPoint second) => CalculationDistanceToPoint(Latitude, Longitude, second.Latitude, second.Longitude);
+        public double CalculationDistanceToPoint(GeoPoint second)
+        {
+            if (second == null)
+            {
+                return double.MinValue;
+            }
+
+            return CalculationDistanceToPoint(Latitude, Longitude, second.Latitude, second.Longitude);
+        }
 
         private static bool IsCorrectGeoPoints(double firstLatitude, double firstLongitude, double secondLatitude, double secondLongitude)
         {
@@ -49,10 +57,34 @@ namespace DistanceBetweenTwoGeoPoints
             return false;
         }
 
-        private static bool IsCorrectLatitude(double latitude) => Math.Abs(latitude) <= 90d;
+        private static bool IsCorrectLatitude(double latitude)
+        {
+            if (Math.Abs(latitude) <= 90d)
+            {
+                return true;
+            }
 
-        private static bool IsCorrectLongitude(double longitude) => Math.Abs(longitude) <= 180d;
+            return false;
+        }
 
-        private static double ToRadian(double deg) => deg == 0d ? 0d : deg * Math.PI / 180;
+        private static bool IsCorrectLongitude(double longitude)
+        {
+            if (Math.Abs(longitude) <= 180d)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static double ToRadian(double deg)
+        {
+            if (deg == 0d)
+            {
+                return 0d;
+            }
+
+            return deg * Math.PI / 180;
+        }
     }
 }

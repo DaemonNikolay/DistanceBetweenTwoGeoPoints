@@ -6,17 +6,40 @@ namespace Tests
     [TestClass]
     public class GeoPointTests
     {
-        const double delta = 300;
+        const double delta = 0.3;
+
+
+        [TestMethod]
+        public void ManualFirst()
+        {
+            var first = new GeoPoint(0, 0);
+            var second = new GeoPoint(0, 1);
+
+            var actual = first.CalculationDistanceToPoint(second);
+
+            Assert.AreEqual(expected: 111, actual: actual, delta: delta);
+        }
+        [TestMethod]
+        public void ManualSecond()
+        {
+            var first = new GeoPoint(89.9, 0);
+            var second = new GeoPoint(89.9, 1);
+
+            var actual = first.CalculationDistanceToPoint(second);
+
+            Assert.AreEqual(expected: 0.19, actual: actual, delta: 0.1);
+        }
+
 
         [TestMethod]
         public void CalculationDistanceToPointMoskauToTunis()
         {
-            var moskau = new GeoPoint(55.720224, 37.629893);
-            var tunis = new GeoPoint(33.857982, 9.526866);
+            var moskau = new GeoPoint(55.752890, 37.617308);
+            var tunis = new GeoPoint(36.797794, 10.172916);
 
             var actual = moskau.CalculationDistanceToPoint(tunis);
 
-            Assert.AreEqual(expected: 3000, actual: actual, delta: delta, message: "Distance from Moskau to Tunis");
+            Assert.AreEqual(expected: 2944.8, actual: actual, delta: delta, message: "Distance from Moskau to Tunis");
         }
 
         [TestMethod]
@@ -27,18 +50,7 @@ namespace Tests
 
             var actual = newYork.CalculationDistanceToPoint(urugvay);
 
-            Assert.AreEqual(expected: 8351, actual: actual, delta: delta, message: "Distance from New York to Urugvay");
-        }
-
-        [TestMethod]
-        public void CalculationDistanceToPointNewYorkToWashington()
-        {
-            var newYork = new GeoPoint(40.687512, -73.874631);
-            var washington = new GeoPoint(38.863545, -76.965959);
-
-            var actual = newYork.CalculationDistanceToPoint(washington);
-
-            Assert.AreEqual(expected: 328, actual: actual, delta: delta, message: "Distance from New York to Washington");
+            Assert.AreEqual(expected: 8385.8, actual: actual, delta: delta, message: "Distance from New York to Urugvay");
         }
 
         [TestMethod]
@@ -49,7 +61,7 @@ namespace Tests
 
             var actual = gabon.CalculationDistanceToPoint(alKharga);
 
-            Assert.AreEqual(expected: 3500, actual: actual, delta: delta, message: "Distance from Gabon to AlKharga");
+            Assert.AreEqual(expected: 3483.4, actual: actual, delta: delta, message: "Distance from Gabon to AlKharga");
         }
 
 
@@ -109,16 +121,26 @@ namespace Tests
         }
 
         [TestMethod]
+        public void CalculationDistanceToPointNull()
+        {
+            var start = new GeoPoint(0d, 0d);
+
+            var actual = start.CalculationDistanceToPoint(null);
+
+            Assert.AreEqual(expected: double.MinValue, actual: actual, message: "Null value geo point");
+        }
+
+        [TestMethod]
         public void StaticCalculationDistanceToPointMoskauToTunis()
         {
-            const double moskauLat = 55.720224;
-            const double moskauLon = 37.629893;
-            const double tunisLat = 33.857982;
-            const double tunisLon = 9.526866;
+            const double moskauLat = 55.752890;
+            const double moskauLon = 37.617308;
+            const double tunisLat = 36.797794;
+            const double tunisLon = 10.172916;
 
             var actual = GeoPoint.CalculationDistanceToPoint(moskauLat, moskauLon, tunisLat, tunisLon);
 
-            Assert.AreEqual(expected: 3000, actual: actual, delta: delta, message: "Static method: distance from Moskau to Tunis");
+            Assert.AreEqual(expected: 2944.8, actual: actual, delta: delta, message: "Static method: distance from Moskau to Tunis");
         }
 
         [TestMethod]
@@ -131,20 +153,7 @@ namespace Tests
 
             var actual = GeoPoint.CalculationDistanceToPoint(newYorkLat, newYorkLon, urugvayLat, urugvayLon);
 
-            Assert.AreEqual(expected: 8351, actual: actual, delta: delta, message: "Static method: distance from New York to Urugvay");
-        }
-
-        [TestMethod]
-        public void StaticCalculationDistanceToPointNewYorkToWashington()
-        {
-            const double newYorkLat = 40.687512;
-            const double newYorkLon = -73.874631;
-            const double washingtonLat = 38.863545;
-            const double washingtonLon = -76.965959;
-
-            var actual = GeoPoint.CalculationDistanceToPoint(newYorkLat, newYorkLon, washingtonLat, washingtonLon);
-
-            Assert.AreEqual(expected: 328, actual: actual, delta: delta, message: "Distance from New York to Washington");
+            Assert.AreEqual(expected: 8385.8, actual: actual, delta: delta, message: "Static method: distance from New York to Urugvay");
         }
 
         [TestMethod]
@@ -157,7 +166,7 @@ namespace Tests
 
             var actual = GeoPoint.CalculationDistanceToPoint(gabonLat, gabonLon, alKhargaLat, alKhargaLon);
 
-            Assert.AreEqual(expected: 3500, actual: actual, delta: delta, message: "Static method: distance from Gabon to AlKharga");
+            Assert.AreEqual(expected: 3483.4, actual: actual, delta: delta, message: "Static method: distance from Gabon to AlKharga");
         }
 
 
